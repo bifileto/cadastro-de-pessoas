@@ -5,9 +5,9 @@ let ArrayCadastro = [];
 document.getElementById("botaoEnviar").addEventListener("click", validaFormulario)
 
 function inserirNoArray(nome, idade){
-  ArrayCadastro.push({nome: nome, idade: idade});
-  
+  ArrayCadastro.push({nome: nome, idade: idade});   
 }
+
 function validaFormulario(){
     if(document.getElementById("nome").value != "" && document.getElementById("idade").value != ""){
     nome = document.getElementById("nome").value;
@@ -16,16 +16,22 @@ function validaFormulario(){
     inserirNoArray(nome, idade);
     console.log("Array Cadastro" , ArrayCadastro);
     
-    const ArrayIdade = ArrayCadastro.sort(ordenaIdade);
-    console.log("Array Idade" , ArrayIdade);
+    let UltimaPessoaInserida = ArrayCadastro[ArrayCadastro.length - 1];
 
-    const ArrayNome = ArrayCadastro.sort(ordenaNome);
-    console.log("Array Nome" , ArrayNome);
+    console.log(UltimaPessoaInserida);
+
+    criarTabela(UltimaPessoaInserida);
 
   }else{
     alert("Por favor, preencha os campos nome e idade")
   }
 }
+
+/*const ArrayIdade = ArrayCadastro.sort(ordenaIdade);
+    console.log("Array Idade" , ArrayIdade);
+
+    const ArrayNome = ArrayCadastro.sort(ordenaNome);
+    console.log("Array Nome" , ArrayNome);*/
 
 function ordenaIdade(a,b){
   return a.idade - b.idade;
@@ -33,6 +39,18 @@ function ordenaIdade(a,b){
 
 function ordenaNome(a,b){
   return a.nome.localeCompare(b.nome);
+}
+
+function criarTabela(pessoa){
+  const tabela = document.getElementById("table");
+    let novaLinha = document.createElement("tr");
+    Object.values(pessoa).forEach((valor) => {
+      let celula = document.createElement("td");
+      celula.innerText = valor;
+      novaLinha.appendChild(celula);
+    })
+    tabela.appendChild(novaLinha);
+  ;
 }
 
 
