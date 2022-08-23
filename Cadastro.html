@@ -16,11 +16,24 @@
 
       </div>
 
+      <div>
+        <label for = "alfabetico">Classificação por ordem Alfabética</label>
+        <input type = "radio" id = "alfabetico" name = "filtro"></button>
+
+        <label for = "idade">Classificação por idade</label>
+        <input type = "radio" id = "idade" name = "filtro"></button>
+      </div>
+
       <table id="table">
-        <tr>
+        <thead>
+          <tr>
           <th>Nome</th>
           <th>Idade</th>
           <th>Faixa etária</th>
+        </thead>
+        <tbody id="tableBody">
+
+        </tbody>
       </table>
 
       <script type="text/javascript" src="Cadastro.js"></script>
