@@ -1,6 +1,7 @@
 let nome;
 let idade;
 let ArrayCadastro = [];
+const caracteresAceitos = /\w/;
 
 document.getElementById("botaoEnviar").addEventListener("click", validaFormulario);
 document.getElementById("filtroIdade").addEventListener("click", filtrarPorIdade);
@@ -10,8 +11,9 @@ function validaFormulario(){
   const naoVazio = document.getElementById("nome").value != "" && document.getElementById("idade").value != "";
   const idadePositiva = parseInt(document.getElementById("idade").value) >= 0;
   const idadePossivel = parseInt(document.getElementById("idade").value) <= 130;
+  const nomePossivel = caracteresAceitos.test(document.getElementById("nome").value);
 
-    if(naoVazio && idadePositiva && idadePossivel){
+    if(naoVazio && idadePositiva && idadePossivel && nomePossivel){
     nome = document.getElementById("nome").value;
     idade = parseInt(document.getElementById("idade").value);
 
