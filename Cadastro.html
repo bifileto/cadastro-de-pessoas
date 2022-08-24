@@ -5,26 +5,21 @@
       <link href="Cadastro.css" rel="stylesheet">
     </head>
     <body>
-      <div>
+      <h1 class="titulo"> Cadastro de pessoas</h1>
+      <div class="formulario">
         <label for="nome">Nome:</label>
         <input id="nome" type="text">
-
         <label for="idade">Idade:</label>
         <input id="idade" type="number">
-
         <button type = "button" id="botaoEnviar">Enviar</button>
-
       </div>
-
-      <div>
-        <label for = "alfabetico">Classificação por ordem Alfabética</label>
-        <input type = "radio" id = "filtroNome" name = "filtro"></button>
-
-        <label for = "idade">Classificação por idade</label>
-        <input type = "radio" id = "filtroIdade" name = "filtro"></button>
+      <div class="filtro">
+        <label for = "alfabetico" class="filtroLabel">Classificação por nome</label>
+        <input type = "radio" id = "filtroNome" name = "filtro" class="filtroRadio" autocomplete="off"></button>
+        <label for = "idade" class="filtroLabel">Classificação por idade</label>
+        <input type = "radio" id = "filtroIdade" name = "filtro" class="filtroRadio" autocomplete="off"></button>
       </div>
-
-      <table id="table">
+      <table id="table" class="tabela">
         <thead>
           <tr>
           <th>Nome</th>
@@ -32,10 +27,8 @@
           <th>Faixa etária</th>
         </thead>
         <tbody id="tableBody">
-
         </tbody>
       </table>
-
       <script type="text/javascript" src="Cadastro.js"></script>
     </body>
   </html>
