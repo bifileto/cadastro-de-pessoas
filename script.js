@@ -4,43 +4,40 @@ const botaoEnviar = document.getElementById("botaoEnviar");
 const filtroIdade = document.getElementById("filtroIdade");
 const filtroNome = document.getElementById("filtroNome");
 
-botaoEnviar.addEventListener("click", validaFormulario);
-filtroIdade.addEventListener("click", filtrarPorIdade);
-filtroNome.addEventListener("click", filtrarPorNome);
 
-function validaFormulario(){
-  let nome = document.getElementById("nome");
-  let idade = document.getElementById("idade");
-  const naoVazio = nome.value != "" && idade.value != "";
-  const idadePositiva = parseInt(idade.value) >= 0;
-  const idadePossivel = parseInt(idade.value) <= 130;
-  const nomePossivel = caracteresAceitos.test(nome.value);
+function validaFormulario(nome,idade){
+  
+  const vazio = nome === "" && idade === "";
+  const idadePositiva = parseInt(idade) >= 0;
+  const idadePossivel = parseInt(idade) <= 130;
+  const nomePossivel = caracteresAceitos.test(nome);
 
-    if(naoVazio && idadePositiva && idadePossivel && nomePossivel){
-    nome = nome.value;
-    idade = parseInt(idade.value);
-
-    inserirNoArray(nome, idade);
-    
-    let UltimaPessoaInserida = ArrayCadastro[ArrayCadastro.length - 1];
-
-    criarTabela(UltimaPessoaInserida);
-  }else{
-    alert("Por favor, preencha os campos nome e idade com dados válidos")
+  if(vazio || !idadePositiva || !idadePossivel || !nomePossivel){ 
+    return false;   
+  } else {
+    return true;
   }
 }
 
-function inserirNoArray(nome, idade){
+function inserirNoArray(){
+  let nome = document.getElementById("nome").value;
+  let idade = document.getElementById("idade").value;
   const faixaEtaria = classificarFaixaEtaria(idade);
-  ArrayCadastro.push({nome: nome, idade: idade, faixaEtaria: faixaEtaria});   
+  if(validaFormulario(nome, idade)){
+    ArrayCadastro.push({nome: nome, idade: idade, faixaEtaria: faixaEtaria}); 
+    let UltimaPessoaInserida = ArrayCadastro[ArrayCadastro.length - 1];
+    criarTabela(UltimaPessoaInserida); 
+  }else{
+    alert("Por favor, preencha os campos nome e idade com dados válidos");
+  }
 }
 
-function filtrarPorIdade(){
+function filtrarPorIdadeCrescente(){
 ArrayCadastro.sort(ordenaIdade);
 recriarTabela(ArrayCadastro);
 }
 
-function filtrarPorNome(){
+function filtrarPorOrdemAlfabetica(){
 ArrayCadastro.sort(ordenaNome);
 recriarTabela(ArrayCadastro);
 }
@@ -99,4 +96,7 @@ function recriarTabela(pessoas){
   });
 }
 
+botaoEnviar.addEventListener("click", inserirNoArray);
+filtroIdade.addEventListener("click", filtrarPorIdadeCrescente);
+filtroNome.addEventListener("click", filtrarPorOrdemAlfabetica);
 
