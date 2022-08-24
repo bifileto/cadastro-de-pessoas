@@ -3,6 +3,8 @@ let idade;
 let ArrayCadastro = [];
 
 document.getElementById("botaoEnviar").addEventListener("click", validaFormulario);
+document.getElementById("filtroIdade").addEventListener("click", filtrarPorIdade);
+document.getElementById("filtroNome").addEventListener("click", filtrarPorNome);
 
 function inserirNoArray(nome, idade){
   ArrayCadastro.push({nome: nome, idade: idade});   
@@ -11,8 +13,9 @@ function inserirNoArray(nome, idade){
 function validaFormulario(){
   const naoVazio = document.getElementById("nome").value != "" && document.getElementById("idade").value != "";
   const idadePositiva = parseInt(document.getElementById("idade").value) >= 0;
+  const idadePossivel = parseInt(document.getElementById("idade").value) <= 130;
 
-    if(naoVazio && idadePositiva){
+    if(naoVazio && idadePositiva && idadePossivel){
     nome = document.getElementById("nome").value;
     idade = parseInt(document.getElementById("idade").value);
 
@@ -22,20 +25,22 @@ function validaFormulario(){
 
     criarTabela(UltimaPessoaInserida);
   }else{
-    alert("Por favor, preencha os campos nome e idade")
+    alert("Por favor, preencha os campos nome e idade com dados válidos")
   }
 }
 
-document.getElementById("idade").addEventListener("click", ordenaIdade)
- 
-const ArrayIdade = ArrayCadastro.sort(ordenaIdade);
-console.log("Array Idade" , ArrayIdade);
 
-const ArrayNome = ArrayCadastro.sort(ordenaNome);
-console.log("Array Nome" , ArrayNome);
+function filtrarPorIdade(){
+ArrayCadastro.sort(ordenaIdade);
+recriarTabela(ArrayCadastro);
+}
+
+function filtrarPorNome(){
+ArrayCadastro.sort(ordenaNome);
+recriarTabela(ArrayCadastro);
+}
 
 function ordenaIdade(a,b){
-  console.log("Array cadastro fora:", ArrayCadastro)
   return a.idade - b.idade;
 }
 
@@ -55,5 +60,23 @@ function criarTabela(pessoa){
   ;
 }
 
+function deletarLinhas(tabela){
+  while(tabela.rows.length > 0){
+    tabela.deleteRow(0);
+  }
+}
+function recriarTabela(pessoas){
+  const tabela = document.getElementById("tableBody");
+  deletarLinhas(tableBody);
+  pessoas.forEach(pessoa => {
+    let novaLinha = document.createElement("tr");
+    Object.values(pessoa).forEach((valor) => {
+      let celula = document.createElement("td");
+      celula.innerText = valor;
+      novaLinha.appendChild(celula);
+    })
+    tabela.appendChild(novaLinha);
+  });
+}
 
 
