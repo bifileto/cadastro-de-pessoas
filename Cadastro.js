@@ -6,10 +6,6 @@ document.getElementById("botaoEnviar").addEventListener("click", validaFormulari
 document.getElementById("filtroIdade").addEventListener("click", filtrarPorIdade);
 document.getElementById("filtroNome").addEventListener("click", filtrarPorNome);
 
-function inserirNoArray(nome, idade){
-  ArrayCadastro.push({nome: nome, idade: idade});   
-}
-
 function validaFormulario(){
   const naoVazio = document.getElementById("nome").value != "" && document.getElementById("idade").value != "";
   const idadePositiva = parseInt(document.getElementById("idade").value) >= 0;
@@ -29,6 +25,10 @@ function validaFormulario(){
   }
 }
 
+function inserirNoArray(nome, idade){
+  const faixaEtaria = classificarFaixaEtaria(idade);
+  ArrayCadastro.push({nome: nome, idade: idade, faixaEtaria: faixaEtaria});   
+}
 
 function filtrarPorIdade(){
 ArrayCadastro.sort(ordenaIdade);
@@ -46,6 +46,21 @@ function ordenaIdade(a,b){
 
 function ordenaNome(a,b){
   return a.nome.localeCompare(b.nome);
+}
+
+function classificarFaixaEtaria(idade){
+  if (idade <= 12){
+    return "Criança";
+  } 
+  if (idade > 12 && idade <= 19){
+    return "Adolescente";
+  } 
+  if (idade > 19 && idade < 65){
+    return "Adulto";
+  } 
+  if (idade >= 65){
+    return "Idoso";
+  }
 }
 
 function criarTabela(pessoa){
