@@ -4,14 +4,11 @@ const botaoEnviar = document.getElementById("botaoEnviar");
 const filtroIdade = document.getElementById("filtroIdade");
 const filtroNome = document.getElementById("filtroNome");
 
-
 function validaFormulario(nome,idade){
-  
   const vazio = nome === "" && idade === "";
   const idadePositiva = parseInt(idade) >= 0;
   const idadePossivel = parseInt(idade) <= 130;
   const nomePossivel = caracteresAceitos.test(nome);
-
   if(vazio || !idadePositiva || !idadePossivel || !nomePossivel){ 
     return false;   
   } else {
@@ -27,7 +24,7 @@ function inserirNoArray(){
     ArrayCadastro.push({nome: nome, idade: idade, faixaEtaria: faixaEtaria}); 
     let UltimaPessoaInserida = ArrayCadastro[ArrayCadastro.length - 1];
     criarTabela(UltimaPessoaInserida); 
-  }else{
+  } else {
     alert("Por favor, preencha os campos nome e idade com dados válidos");
   }
 }
@@ -74,7 +71,6 @@ function criarTabela(pessoa){
       novaLinha.appendChild(celula);
     })
     tabela.appendChild(novaLinha);
-  ;
 }
 
 function deletarLinhas(tabela){
@@ -82,6 +78,7 @@ function deletarLinhas(tabela){
     tabela.deleteRow(0);
   }
 }
+
 function recriarTabela(pessoas){
   const tabela = document.getElementById("tableBody");
   deletarLinhas(tableBody);
@@ -99,4 +96,3 @@ function recriarTabela(pessoas){
 botaoEnviar.addEventListener("click", inserirNoArray);
 filtroIdade.addEventListener("click", filtrarPorIdadeCrescente);
 filtroNome.addEventListener("click", filtrarPorOrdemAlfabetica);
-
